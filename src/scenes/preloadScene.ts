@@ -6,7 +6,14 @@ export default class PreloadScene extends Phaser.Scene {
     }
 
     preload() {
+        this.load.image("bomb", "assets/img/bomb.png");
+        this.load.image("star", "assets/img/star.png");
+        this.load.image("sky", "assets/sky.png");
         this.load.image("phaser-logo", "assets/img/phaser-logo.png");
+        this.load.spritesheet("dude", "assets/img/dude.png", {
+            frameWidth: 32,
+            frameHeight: 48,
+        });
     }
 
     create() {

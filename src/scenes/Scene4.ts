@@ -1,21 +1,22 @@
 import Phaser from "phaser";
-import PhaserLogo from "../objects/phaserLogo";
 import FpsText from "../objects/fpsText";
 
-export default class MainScene extends Phaser.Scene {
+export default class Scene4 extends Phaser.Scene {
     fpsText: FpsText;
     happyNumberText: Phaser.GameObjects.Text;
-    public happyNumber1: number = 0;
+    public happyNumber4!: number;
 
     constructor() {
-        super({ key: "MainScene" });
+        super({ key: "Scene4" });
+    }
+    init(data: { happyNum: number }): void {
+        this.happyNumber4 = data.happyNum;
     }
 
     create() {
-        //Images
-        new PhaserLogo(this, this.cameras.main.width / 2, 0);
         this.fpsText = new FpsText(this);
-        //this.add.image(500, 400, "sky");
+        this.add.image(400, 300, "sky");
+        this.add.image(400, 300, "bomb").setScale(2.0);
 
         const message = `Phaser v${Phaser.VERSION}`;
         this.add
@@ -24,28 +25,21 @@ export default class MainScene extends Phaser.Scene {
                 fontSize: "24px",
             })
             .setOrigin(1, 0);
-
-        //Make button to click to update Happy Count
+        //No button needed to switch to next scene since this is the last scene
+        //Make Happy Number
         this.happyNumberText = this.add.text(100, 200, "", { color: "#0f0" });
         this.add
             .text(100, 100, "Click me if happy!", { color: "#0f0" })
             .setInteractive()
             .on("pointerdown", () => {
-                this.updateHappyNumberText((this.happyNumber1 += 1));
+                this.updateHappyNumberText((this.happyNumber4 += 1));
             });
 
-        this.updateHappyNumberText(this.happyNumber1);
-
-        //Make button to switch to next scene, Scene2
-        const clickButton = this.add.text(100, 300, "Click for next scene", {
-            color: "#0f0",
-        });
-        clickButton.setInteractive();
-        clickButton.on("pointerdown", () =>
-            this.scene.start("Scene2", {
-                happyNum: this.happyNumber1,
-            })
-        );
+        this.updateHappyNumberText(this.happyNumber4);
+        this.add.text(100, 300, "The End!"),
+            {
+                color: " #0f0",
+            };
     }
 
     updateHappyNumberText(happyNumber: number) {
