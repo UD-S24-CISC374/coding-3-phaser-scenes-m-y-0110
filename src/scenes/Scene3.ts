@@ -1,20 +1,21 @@
 import Phaser from "phaser";
-import PhaserLogo from "../objects/phaserLogo";
 import FpsText from "../objects/fpsText";
 
-export default class MainScene extends Phaser.Scene {
+export default class Scene3 extends Phaser.Scene {
     fpsText: FpsText;
     happyNumberText: Phaser.GameObjects.Text;
-    public happyNumber: number = 0;
+    public happyNumber3!: number;
 
     constructor() {
-        super({ key: "MainScene" });
+        super({ key: "Scene3" });
     }
-
+    init(data: { happyNum: number }): void {
+        this.happyNumber3 = data.happyNum;
+    }
     create() {
-        new PhaserLogo(this, this.cameras.main.width / 2, 0);
         this.fpsText = new FpsText(this);
-        //this.add.image(500, 400, "sky");
+        this.add.image(400, 300, "sky");
+        this.add.image(400, 300, "star").setScale(3.0);
 
         const message = `Phaser v${Phaser.VERSION}`;
         this.add
@@ -23,25 +24,24 @@ export default class MainScene extends Phaser.Scene {
                 fontSize: "24px",
             })
             .setOrigin(1, 0);
-
-        //Make button to switch to next scene, Scene2
+        //Make button to switch to next scene, Scene3
         const clickButton = this.add.text(100, 300, "Click for next scene", {
-            color: "#0f0",
+            color: " #0f0",
         });
         clickButton.setInteractive();
-        //Make button to click to update Happy Count
+        //Make Happy Number
         this.happyNumberText = this.add.text(100, 200, "", { color: "#0f0" });
         this.add
             .text(100, 100, "Click me if happy!", { color: "#0f0" })
             .setInteractive()
             .on("pointerdown", () => {
-                this.updateHappyNumberText((this.happyNumber += 1));
+                this.updateHappyNumberText((this.happyNumber3 += 1));
             });
 
-        this.updateHappyNumberText(this.happyNumber);
+        this.updateHappyNumberText(this.happyNumber3);
         clickButton.on("pointerdown", () =>
-            this.scene.start("Scene2", {
-                happyNum: this.happyNumber,
+            this.scene.start("Scene4", {
+                happyNum: this.happyNumber3,
             })
         );
     }
