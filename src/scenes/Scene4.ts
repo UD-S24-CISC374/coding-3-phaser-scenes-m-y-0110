@@ -36,6 +36,10 @@ export default class Scene4 extends Phaser.Scene {
             });
 
         this.updateHappyNumberText(this.happyNumber4);
+        this.add.text(100, 300, "The End!"),
+            {
+                color: " #0f0",
+            };
     }
 
     updateHappyNumberText(happyNumber: number) {

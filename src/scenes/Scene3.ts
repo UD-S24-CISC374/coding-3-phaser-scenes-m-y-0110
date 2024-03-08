@@ -28,6 +28,11 @@ export default class Scene3 extends Phaser.Scene {
         const clickButton = this.add.text(100, 300, "Click for next scene", {
             color: " #0f0",
         });
+        clickButton.on("pointerdown", () =>
+            this.scene.start("Scene4", {
+                happyNum: this.happyNumber3,
+            })
+        );
         clickButton.setInteractive();
         //Make Happy Number
         this.happyNumberText = this.add.text(100, 200, "", { color: "#0f0" });
@@ -39,11 +44,7 @@ export default class Scene3 extends Phaser.Scene {
             });
 
         this.updateHappyNumberText(this.happyNumber3);
-        clickButton.on("pointerdown", () =>
-            this.scene.start("Scene4", {
-                happyNum: this.happyNumber3,
-            })
-        );
+    
     }
 
     updateHappyNumberText(happyNumber: number) {

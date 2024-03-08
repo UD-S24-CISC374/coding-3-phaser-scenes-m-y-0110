@@ -5,13 +5,14 @@ import FpsText from "../objects/fpsText";
 export default class MainScene extends Phaser.Scene {
     fpsText: FpsText;
     happyNumberText: Phaser.GameObjects.Text;
-    public happyNumber: number = 0;
+    public happyNumber1: number = 0;
 
     constructor() {
         super({ key: "MainScene" });
     }
 
     create() {
+        //Images
         new PhaserLogo(this, this.cameras.main.width / 2, 0);
         this.fpsText = new FpsText(this);
         //this.add.image(500, 400, "sky");
@@ -24,24 +25,25 @@ export default class MainScene extends Phaser.Scene {
             })
             .setOrigin(1, 0);
 
-        //Make button to switch to next scene, Scene2
-        const clickButton = this.add.text(100, 300, "Click for next scene", {
-            color: "#0f0",
-        });
-        clickButton.setInteractive();
         //Make button to click to update Happy Count
         this.happyNumberText = this.add.text(100, 200, "", { color: "#0f0" });
         this.add
             .text(100, 100, "Click me if happy!", { color: "#0f0" })
             .setInteractive()
             .on("pointerdown", () => {
-                this.updateHappyNumberText((this.happyNumber += 1));
+                this.updateHappyNumberText((this.happyNumber1 += 1));
             });
 
-        this.updateHappyNumberText(this.happyNumber);
+        this.updateHappyNumberText(this.happyNumber1);
+
+        //Make button to switch to next scene, Scene2
+        const clickButton = this.add.text(100, 300, "Click for next scene", {
+            color: "#0f0",
+        });
+        clickButton.setInteractive();
         clickButton.on("pointerdown", () =>
             this.scene.start("Scene2", {
-                happyNum: this.happyNumber,
+                happyNum: this.happyNumber1,
             })
         );
     }
